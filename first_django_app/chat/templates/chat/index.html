@@ -13,7 +13,13 @@
 	<header class="mdl-layout__header">
 	  <div class="mdl-layout__header-row">
 		<!-- Title -->
-		<span class="mdl-layout-title">Welcome, {{ request.user.first_name }}!</span>
+		<span class="mdl-layout-title">
+			{% if request.user.is_authenticated %}
+			Welcome, {{ request.user.first_name }}!
+			{% else %}
+			Please login.
+			{% endif %}
+		</span>
 		<!-- Add spacer, to align navigation to the right -->
 		<div class="mdl-layout-spacer"></div>
 		<!-- Navigation. We hide it in small screens. -->
@@ -36,6 +42,7 @@
 	</div>
 	<main class="mdl-layout__content">
 	  <div class="page-content">
+		{% if request.user.is_authenticated %}
 
 		{% for message in messages %}
 		<div>
@@ -53,7 +60,10 @@
 				Send
 			  </button>
 		  </form>
-	
+		{% else %}
+			<h1>Not logged in</h1>
+			<p>Please <a href="/login">login</a>.</p>
+		{% endif %}
 
 	  </div>
 	</main>
