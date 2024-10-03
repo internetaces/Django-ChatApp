@@ -5,3 +5,15 @@
 .color-gray {
     color: grey;
 }
+
+
+.mdl-layout__drawer-button {
+    display: none;
+}
+
+@media screen and (max-width: 1025px) {
+    .mdl-layout__drawer-button {
+        display: block;
+    }
+
+}

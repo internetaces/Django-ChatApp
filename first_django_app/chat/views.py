@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Message, Chat
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -24,7 +24,10 @@ def login_view(request):
 		user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
 		if user:
 			login(request, user)
-			return HttpResponseRedirect(request.POST.get('redirect'))
+			if user.first_name != "":
+					return HttpResponseRedirect(request.POST.get('redirect'))
+			else:
+					return render(request, 'auth/complete.html', {'redirect': redirect})
 		else:
 			return render(request, 'auth/login.html', {'wrongPassword': True, 'redirect': redirect})
 	return render(request, 'auth/login.html', {'redirect': redirect})
@@ -35,6 +38,20 @@ def register_view(request):
 		User.objects.create_user(request.POST.get('username'), request.POST.get('email'), request.POST.get('password'))
 
 	return render(request, 'auth/register.html', {'redirect': redirect})
+
+def complete_view(request):
+	if request.method == 'POST':
+		user = get_object_or_404(User, username=request.user.username)
+		user.first_name = request.POST.get('first_name')
+		user.save()
+		#User.objects.create_user(request.POST.get('first_name'))
+
+		return render(request, 'chat.html')  
+	else:
+		return render(request, 'complete.html')  
+
+def front_view(request):
+    return render(request, 'static/front.html')
 
 
 

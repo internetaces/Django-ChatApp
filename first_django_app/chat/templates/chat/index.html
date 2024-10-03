@@ -11,7 +11,7 @@
 async function sendMessage() {
   let fd = new FormData();
   let token = '{{ csrf_token }}';
-  // let messageField = document.getElementById('messageField').value; Nicht mehr nötig
+  // let messageField = document.getElementById('messageField').value; no longer necessary
   fd.append('textmessage', messageField.value);
   fd.append('csrfmiddlewaretoken', token);
   try{
