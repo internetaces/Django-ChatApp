@@ -44,11 +44,10 @@ def complete_view(request):
 		user = get_object_or_404(User, username=request.user.username)
 		user.first_name = request.POST.get('first_name')
 		user.save()
-		#User.objects.create_user(request.POST.get('first_name'))
 
-		return render(request, 'chat.html')  
+		return render(request, 'chat/index.html')  # RICHTIGE WEITERLEITUNG zum CHAT FEHLT NOCH!!!!!
 	else:
-		return render(request, 'complete.html')  
+		return render(request, 'auth/complete.html')  
 
 def front_view(request):
     return render(request, 'static/front.html')

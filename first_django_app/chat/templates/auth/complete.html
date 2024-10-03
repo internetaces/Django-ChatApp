@@ -4,7 +4,7 @@
 <form action="/complete/" method="POST">
   {% csrf_token %}
   <input type="hidden" />
-  <div><input name="first_name" type="text" placeholder="First name" /></div>
+  <div><input name="first_name" type="text" placeholder="First name" value="{{ request.user.first_name}}"/></div>
   <button>Save</button>
 </form>
 {% endblock %}
